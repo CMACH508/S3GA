@@ -1,0 +1,45 @@
+# generate output dir.
+MODEL_NAME: alignment
+DATASET_NAME: dbp15k_unsup_cluster_Labse_5
+BATCH_SIZE: 200000
+
+# experiment setting.
+MODULE: 
+  GSSL.clustering
+
+DATASET_FULL_NAME: DBP15K
+DATASET_PATH: ./data/DBP15K_SEU_TRI
+# PRETRAINED_PATH: output/alignment_dbp15k_unsup_baseline_LaBSE_sinkhorn_32/fr_en/params/params_0301.pt
+NUM_CENTROIDS: 5
+DATASET_PARTITION: 
+  # metis_pair
+  gt_subgraph
+
+RANDOM_SEED: 123
+STATISTIC_STEP: 10
+
+GPUS:
+ - 0
+ - 1
+MODEL:
+  IN_CHANNEL: 768
+  
+  HIDDEN_CHANNEL: 256
+  OUT_CHANNEL: 256
+  NUM_LAYER: 2
+  LOOP: False
+  NORM: False
+
+TRAIN:
+  START_EPOCH: 0
+  NUM_EPOCHS: 500
+  NUM_ITER: 50
+  # learning rate
+  LR: 1.0e-3
+  MOMENTUM: 0.9
+  LR_DECAY: 0.0
+  LR_STEP:  # (in epochs)
+    - 9
+  LR_REDUCE_FACTOR: 0.0
+  LR_SCHEDULE_PATIENCE: 0.0
+  

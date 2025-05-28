@@ -1,0 +1,56 @@
+# generate output dir.
+MODEL_NAME: alignment
+DATASET_NAME: mkdata_unsup_cluster_Labse_500
+BATCH_SIZE: 200000
+
+# experiment setting.
+MODULE: 
+  GSSL.clustering
+  # GSSL.alignment
+  # GSSL.alignment_large
+DATASET_FULL_NAME: mkdata
+DATASET_PATH: ./data/mkdata
+# PRETRAINED_PATH: output/alignment_dbp15k_unsup_baseline_LaBSE_sinkhorn_32/fr_en/params/params_0301.pt
+NUM_CENTROIDS: 300
+DATASET_PARTITION: 
+  # metis_pair
+  gt_subgraph
+
+RANDOM_SEED: 123
+STATISTIC_STEP: 5
+
+GPUS:
+ - 0
+ - 1
+MODEL:
+  IN_CHANNEL: 768
+  
+  HIDDEN_CHANNEL: 256
+  OUT_CHANNEL: 256
+  NUM_LAYER: 2
+  LOOP: False
+  NORM: False
+
+TRAIN:
+  START_EPOCH: 0
+  NUM_EPOCHS: 50
+  NUM_ITER: 50
+  # learning rate
+  LR: 1.0e-3
+  MOMENTUM: 0.9
+  LR_DECAY: 0.0
+  LR_STEP:  # (in epochs)
+    - 9
+  LR_REDUCE_FACTOR: 0.0
+  LR_SCHEDULE_PATIENCE: 0.0
+  
+
+
+SUBGRAPH:
+  BATCH_SIZE: 1
+  ARCHITECTURE_COMPENSATE: True
+  MERGE_CLUSTER: False
+  SCORE_FUNC_NAME: "const"
+  SHUFFLE: True
+  NUM_WORKS: 0
+  
